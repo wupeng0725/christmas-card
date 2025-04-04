@@ -358,8 +358,8 @@ function restoreHeart() {
   )
 }
 
-let gui = new GUI()
-gui.add({ '截图': screenShot }, '截图')
+// let gui = new GUI()
+// gui.add({ '截图': screenShot }, '截图')
 
 function screenShot() {
   const canvas = renderer.domElement
