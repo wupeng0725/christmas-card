@@ -9,5 +9,5 @@ export default defineConfig({
     outDir: 'docs', // 使用 GitHub Pages默认识别目录
     assetsDir: 'static' // 静态资源子目录
   },
-  assetsInclude: ['**/*.hdr', '**/*.glb']
+  assetsInclude: ['**/*.hdr', '**/*.glb'] // 如果这些文件放在Public下就不用配置
 })
