@@ -21,6 +21,8 @@ import gsap from 'gsap'
 import { ref } from 'vue'
 import SKY from './assets/textures/sky.hdr'
 import SCENE from './assets/model/scene.glb'
+import normalMap0 from './assets/textures/water/Water_1_M_Normal.jpg'
+import normalMap1 from './assets/textures/water/Water_2_M_Normal.jpg'
 import { withBase } from './utils'
 // 导入lil.gui
 import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js'
@@ -84,6 +86,7 @@ gltfLoader.load(SCENE, (gltf) => {
   scene.add(model)
 })
 // 创建水面
+const textureLoader = new THREE.TextureLoader()
 const waterGeometry = new THREE.CircleGeometry(300, 32)
 const water = new Water(waterGeometry, {
   textureWidth: 512,
@@ -93,6 +96,8 @@ const water = new Water(waterGeometry, {
   // 水纹流动方向
   flowDirection: new THREE.Vector2(1, 1),
   scale: 100,
+  normalMap0: textureLoader.load(normalMap0),
+  normalMap1: textureLoader.load(normalMap1)
 })
 water.rotation.x = -Math.PI / 2
 water.position.y = -0.4
