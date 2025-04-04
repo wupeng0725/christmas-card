@@ -19,9 +19,11 @@ import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js'
 import { Water } from 'three/examples/jsm/objects/Water2.js'
 import gsap from 'gsap'
 import { ref } from 'vue'
+import SKY from './assets/textures/sky.hdr'
+import SCENE from './assets/model/scene.glb'
+import { withBase } from './utils'
 // 导入lil.gui
 import { GUI } from 'three/examples/jsm/libs/lil-gui.module.min.js'
-
 
 // 初始化场景
 const scene = new THREE.Scene()
@@ -53,20 +55,20 @@ controls.target.set(-8, 2, 0)
 
 // 初始化解压Loader
 const dracoLoader = new DRACOLoader()
-dracoLoader.setDecoderPath('/draco/')
+dracoLoader.setDecoderPath(withBase('/draco/'))
 const gltfLoader = new GLTFLoader()
 gltfLoader.setDRACOLoader(dracoLoader)
 
 // 加载环境纹理
 const rgbeLoader = new RGBELoader()
-rgbeLoader.load('/textures/sky.hdr', (texture) => {
+rgbeLoader.load(SKY, (texture) => {
   texture.mapping = THREE.EquirectangularReflectionMapping
   scene.background = texture
   scene.environment = texture
 })
 
 // 加载模型
-gltfLoader.load('/model/scene.glb', (gltf) => {
+gltfLoader.load(SCENE, (gltf) => {
   const model = gltf.scene
   model.traverse((child) => {
     if (child.name === 'Plane') {
@@ -153,6 +155,7 @@ gsap.to(options, {
     })
   }
 })
+
 function render() {
   requestAnimationFrame(render)
   renderer.render(scene, camera)
@@ -355,7 +358,6 @@ gui.add({ '截图': screenShot }, '截图')
 
 function screenShot() {
   const canvas = renderer.domElement
-  console.log(canvas)
   renderer.render(scene, camera)
   canvas.toBlob((blob) => {
     saveBlob(blob, `screencapture-${canvas.width}x${canvas.height}.png`)

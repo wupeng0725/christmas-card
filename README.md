@@ -1,6 +1,6 @@
 # threejs制作的3D圣诞卡片
 
-> 技术栈：vue3+vite
+> 技术栈：vue3+vite+threejs
 
 效果图如下：
 
